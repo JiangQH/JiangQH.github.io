@@ -1,0 +1,38 @@
+# ---------------- #
+#   Main Configs   #
+# ---------------- #
+baseurl: 
+url: http://jiangqh.info
+date_format: "ordinal"
+title: Jiang's Blog
+author: JiangQH 
+
+# ---------------- #
+#   RSS / Email    #
+# ---------------- #
+subscribe_rss: /feed.xml
+email:
+
+# ---------------- #
+#      Jekyll      #
+# ---------------- #
+markdown: kramdown
+kramdown:
+    input: GFM
+paginate: 9
+permalink: /:year/:month/:day/:title/
+gems:
+    - jekyll-paginate
+    - jekyll-sitemap
+    - jekyll-feed
+    - jemoji
+collections:
+    wiki:
+        output: true
+        permalink: /wiki/:path/
+
+# ---------------- #
+#      Comments    #
+# ---------------- #
+duoshuo_short_name: jiangqh
+changyan: false
