@@ -1,2 +1,2 @@
-# JiangQH.github.io
-[Web blog](jiangqh.info)
+# my own web blog
+[Web blog](http://jiangqh.info)
