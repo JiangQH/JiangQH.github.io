@@ -17,11 +17,12 @@ DL & Stereo Cv
 
 
 
-**Education:** 
-
-2011-2015   Digital Media Technology, Zhejiang University.  Bachelor
+**Education:**
 
 2015-2018   CAD&CG State Key Laboratory, Zhejiang University. Master
+
+
+2011-2015   Digital Media Technology, Zhejiang University.  Bachelor
 
 
 
@@ -34,5 +35,3 @@ DL & Stereo Cv
 **Social:**
 
 [github](https://github.com/JiangQH) \| [blog](http://jiangqh.github.io/)
-    
-

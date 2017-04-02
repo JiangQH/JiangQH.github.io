@@ -6,18 +6,18 @@ keywords: project
 permalink: /project/
 ---
 
-### [surface_normal_prediction_use_DL](https://github.com/JiangQH/surface_normal_prediction_use_DL) 
-基于caffe修改，提取cnn特征拼接hypercolumns，解决数据少以及残缺问题。实现单目图的state-of-art法向恢复.
+### [surface normal prediction from monocular image](https://github.com/JiangQH/surface_normal_prediction_use_DL)
+Estimating surface normal from monocular image. Based on the deep learning library caffe with some modifications,
+achieving state-of-art result, results and demo is shown on the github.
 
 
-### [DL_for_pixel-wise_classification](https://github.com/JiangQH/DL_for_pixel-wise_classification)
-基于图像pixel-wise上做的regression任务转换classification，适用于pixle-wise任务，包括深度/法恢复&segmentation等。由于每个predict label有个score，可以进一步做CRf等后处理工作，使得精确度更高。
+### [pixel wise info recovery from monocular image](https://github.com/JiangQH/DL_for_pixel-wise_classification)
+A general frame work to predict pixel wise info from monocular image. When applying to depth estimation, it achieves state-of-art result with much less data, same with surface normal estimation, note segmentation can also be handdled with this project, which will be shown soon.
 
 
-### [style_transfer](https://github.com/JiangQH/style_transfer)
-基于预训练cnn网络的图像风格转换，生成具有艺术风格的生活照片。
+### [image style transfer](https://github.com/JiangQH/style_transfer)
+Based on the feature of cnn, transfer the style from one image to another, which can be used to generate artistic life image.
 
 
 ### [carrie](https://github.com/JiangQH/carrie)
-常见机器学习/深度学习的代码实现(C++/Python)
-
+A self develop machine learning and deep learning library, used for learning and research.
