@@ -4,9 +4,9 @@ baseurl:  # the subpath of your site, e.g. /blog/
 url: http://jiangqh.info # the base hostname & protocol for your site
 permalink: /:title/
 date_format: "ordinal"
-avatar: http://7xof48.com1.z0.glb.clouddn.com/avatar.jpg
-about: http://7xof48.com1.z0.glb.clouddn.com/about.jpg
-favicon: http://7xof48.com1.z0.glb.clouddn.com/favicon.png
+avatar: /images/icon.jpg
+about: /images/icon.jpg
+favicon: /images/icon.jpg
 basecss: 
 # Theme specific configuration
 title: Jiang's Home
