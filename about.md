@@ -3,6 +3,7 @@ layout: page
 title: About Me
 description: 蒋沁宏的个人简介。
 keywords: Jiang QinHong, about me
+cover: /images/icon.jpg
 permalink: /about/
 ---
 **Location:**
@@ -34,4 +35,5 @@ DL & Stereo Cv
 
 **Social:**
 
-[github](https://github.com/JiangQH) \| [blog](http://jiangqh.github.io/)
+[github](https://github.com/JiangQH)   
+[blog](http://jiangqh.github.io/)
