@@ -8,12 +8,12 @@ layout: default
   {% if page.cover %}
     <div class="cover">
     <div class="container">
-<script type="text/javascript"
-src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
       <img src="{{ page.cover }}">
     </div>
   {% endif %}
+  <script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   {{ content }}
   {% if page.tail %}
     <div class="post-tags">{{ page.tail }}</div>

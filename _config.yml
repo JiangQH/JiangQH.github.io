@@ -21,7 +21,7 @@ description: >
 #linkedin_username: songroger
 
 #exclude: ['node_modules', 'gulpfile.js', 'package.json']
-
+markdown: kramdown
 kramdown:
   input: GFM
 
