@@ -16,8 +16,6 @@ Hangzhou City, China \| Zhejiang University
 
 DL & Stereo Cv
 
-
-
 **Education:**
 
 2015-2018   CAD&CG State Key Laboratory, Zhejiang University. Master
@@ -30,7 +28,6 @@ DL & Stereo Cv
 **Contact:**
 
 [mylivejiang@gmail.com](mailto:mylivejiang@gmail.com)
-
 
 
 **Social:**
