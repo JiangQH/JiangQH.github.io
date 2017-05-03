@@ -74,12 +74,15 @@ $$\frac{\partial BN((\alpha w)u)}{\partial (\alpha w)} = \frac{1}{\alpha} \frac{
 
 总结起来便是，**BN解决了反向传播中的梯度弥散和爆炸问题，同时使得weight的更新更加稳健**，从而使网络的学习更加容易，减少了对weight初始化的依赖和可以使用更大的学习速率。
 
-##怎么做BN  
+## 怎么做BN  
 说完了为什么我们来看看具体怎么做。根据定义，我们只需要对每个channel求解其均值和方差，然后进行操作即可。假设某个batch内共有m个数据，那么对某一个channel有：   
 
 $$u = \frac{1}{m}\sum_{i=1}^m x_i$$  
-$$var = \frac{1}{m} \sum_{i=1}^m (x_i - u)^2$$   
+
+$$var = \frac{1}{m} \sum_{i=1}^m (x_i - u)^2$$  
+
 $$\hat{x_i} = \frac{x_i - u}{\sqrt{var + \epsilon}}$$  
+
 $$y_i = \gamma \hat{x_i} + \beta$$    
 
 在上式中前两项为求取均值和方差，第三项分布中\\(\epsilon\\)是为了防止数值问题而加的一个小数，比如\\(10^{-6}\\)。最后一项中\\(\gamma\\)和\\(\beta\\)是可以学习的参数，通过这两个参数我们使BN保持了更强的学习能力可以自己的分布，那么我们为什么在进行了归一化操作后还要加上这两个参数呢？这是因为加上这两个参数后现在的分布族便包含了原来BN前的分布，但是原来的分布方差和均值由下面层的各种参数weight耦合控制，而现在仅由\\(\gamma\\)和\\(\beta\\)控制，这样在保留BN层足够的学习能力的同时，我们使得其学习更加容易。
@@ -87,15 +90,21 @@ $$y_i = \gamma \hat{x_i} + \beta$$
 利用链式求导法则我们有：
 
 $$\frac{\partial l}{\partial \gamma} = \sum_{i=1}^m \frac{\partial l}{\partial y_i} \hat{x_i}$$  
+
 $$\frac{\partial l}{\partial \beta} = \sum_{i=1}^m \frac{\partial l}{\partial y_i}$$  
+
 $$\frac{\partial l}{\partial \hat{x_i}} =  \frac{\partial l}{\partial y_i} \gamma$$  
+
 $$\frac{\partial l}{\partial var} = \sum_{i=1}^m \frac{\partial l}{\hat{x_i}} \frac{\hat{x_i}}{\partial var} = \sum_{i=1}^m  \frac{\partial l}{\partial y_i} \gamma (x_i - u)\frac{-1}{2}(var + \epsilon)^{\frac{-3}{2}}$$  
+
 $$\frac{\partial l}{\partial u} = (\sum_{i=1}^m \frac{\partial l}{\partial \hat{x_i}} \frac{-1}{\sqrt{var + \epsilon}}) + \frac{\partial l}{\partial var} \frac{\sum_{i=1}^m -2(x_i - u)}{m}$$  
+
 $$\frac{\partial l}{x_i} = \frac{\partial l}{\hat{x_i}}\frac{1}{\sqrt{var + \epsilon}} + \frac{\partial l}{\partial var} \frac{2(x_i - u)}{m} + \frac{\partial l}{\partial u}\frac{1}{m}$$    
 
 至此我们完整的梳理了BN的由来和它解决的问题以及详细推导过程，具体实现可以参考caffe或者TensorFlow里相应的代码。值得注意的是在做test的时候为了对一个sample也可以用BN，此时的\\(u,var\\)往往采用做training时候的一个统计平均，同时方差采样的是无差的平均统计，即做test时有：
 
-$$u_{test} = E[u]$$
+$$u_{test} = E[u]$$  
+
 $$var_{test} = \frac{m}{m-1}E[var]$$
 
 同时注意在卷积层做BN时也是按照channel来的，即进行channel个BN操作。
