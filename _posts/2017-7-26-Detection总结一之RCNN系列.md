@@ -1,14 +1,14 @@
-&emsp;&emsp;最近在做目标检测的相关项目, 对这一领域近几年的paper都梳理了一下. 总结归纳一下目标检测近几年的发展, 一共分为三篇来写, 分别是   
+最近在做目标检测的相关项目, 对这一领域近几年的paper都梳理了一下. 总结归纳一下目标检测近几年的发展, 一共分为三篇来写, 分别是   
      
 - 1、基于Region Proposal的检测方法, 大概的脉络是RCNN --- SPPNet --- Fast-RCNN --- Faster-RCNN.    
     
 - 2、直接做回归的检测方法, 大概的脉络是YOLO --- SSD --- YOLO 9000.    
      
 - 3、介绍一下目前state-of-art的一些检测工作, 它们代表着目前目标检测领域的基本潮流. 对现有的检测方法优缺点做一个总结   
-&emsp;&emsp;本文先梳理一下基于Region Proposal的检测方法. 在梳理中不会涉及太多细节, 只会谈一下大概的思路和每篇论文的关键点. 关于细节处可以去查看对应的paper.   
+本文先梳理一下基于Region Proposal的检测方法. 在梳理中不会涉及太多细节, 只会谈一下大概的思路和每篇论文的关键点. 关于细节处可以去查看对应的paper.   
    
 ## RCNN --- features matter, 将CNN引入目标检测     
-&emsp;&emsp;RCNN论文开篇第一句便说明了论文的关键工作 --- 特征, 而特征提取正是CNN网络所擅长的地方.    
+RCNN论文开篇第一句便说明了论文的关键工作 --- 特征, 而特征提取正是CNN网络所擅长的地方.    
      
 回顾一下在RCNN之前目标检测的一个基本流程：  
 - A、在图像上进行不同尺度滑动窗口   
@@ -37,14 +37,14 @@
 - 2、Softmax微调和SVM训练中使用了不同的IOU来划分正负.   
 - 3、做候选框修正时用的特征和训练SVM用的不一样, 使用的是pool5.   
               
-&emsp;&emsp;RCNN将CNN网络引入到了目标检测领域, 可以说是这一系列方法的开山之作. 但其存在几个明显局限.   
+RCNN将CNN网络引入到了目标检测领域, 可以说是这一系列方法的开山之作. 但其存在几个明显局限.   
 **RCNN的几个明显局限**   
 - 1、训练分多阶段, 需要额外的硬盘存储.  
 - 2、每个Region Proposal都会经过一遍CNN网络, 不共享计算, 耗时大.    
 - 3、Proposal会被缩放到统一大小, 而这会带来畸变, 物体不全等不利因素.    
     
 ## SPPNet --- Spatial Pyramid Pooling 解决候选区resize问题 
-&emsp;&emsp;针对RCNN中存在的2、3缺点, SPPNet提出了Spatial Pyramid Pooling来进行改进. Spatial Pyramid Pooling能够接收不同大小的输入, 但产生相同大小的输出.   
+针对RCNN中存在的2、3缺点, SPPNet提出了Spatial Pyramid Pooling来进行改进. Spatial Pyramid Pooling能够接收不同大小的输入, 但产生相同大小的输出.   
    
 ![sppnet](/images/0726/sppnet.png)  
    
@@ -67,7 +67,7 @@
 - 1、不同的输入大小能产生相同的输出, 这解决了RCNN中需要先对候选区进行的resize操作.    
 - 2、作为对BOW(Bag Of Words)的一个近似, 其提取了不同尺度的特征进行拼接, 使用了多层信息, 对物体形变等有一定作用. 其实当作用在整张feature map时, 其还能带来全局信息的整合, 避免误判 --- 在CVPR 2017的一个做语义分割的工作PSPNet中就是用了这个特性. 不过这里并没有使用该特性综合全局信息(关于这一点我们在后面再讨论).    
 - 3、由于其消除了大小影响, 所以可以进行Variable-Image size的训练, 可以有效防止过拟合(这种训练方式在以后很多工作中都很常见).    
-&emsp;&emsp;SPPNet的引入主要想解决的是RCNN中Region Proposal的缩放问题(因为两个网络都存在全连接层, 需要输入固定大小).     
+SPPNet的引入主要想解决的是RCNN中Region Proposal的缩放问题(因为两个网络都存在全连接层, 需要输入固定大小).     
 **SPPNet还存在的局限**     
 - 1、训练和RCNN一样还是分多阶段进行, 还是需要额外的硬盘存储.    
 - 2、Finetune的时候仅对全连接层做了微调.    
