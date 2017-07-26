@@ -5,6 +5,7 @@
 - 2、直接做回归的检测方法, 大概的脉络是YOLO --- SSD --- YOLO 9000.    
      
 - 3、介绍一下目前state-of-art的一些检测工作, 它们代表着目前目标检测领域的基本潮流. 对现有的检测方法优缺点做一个总结   
+      
 本文先梳理一下基于Region Proposal的检测方法. 在梳理中不会涉及太多细节, 只会谈一下大概的思路和每篇论文的关键点. 关于细节处可以去查看对应的paper.   
    
 ## RCNN --- features matter, 将CNN引入目标检测     
@@ -25,8 +26,8 @@ RCNN论文开篇第一句便说明了论文的关键工作 --- 特征, 而特征
 **RCNN的基本步骤为**   
 - 1、使用Selective Search生成候选区域, 并*缩放到统一大小*.  
 - 2、使用CNN网络提取特征. 此处CNN网络的训练为两个步骤:    
-- &emsp;&emsp;a、ImageNet上的预训练.    
-- &emsp;&emsp;b、将第一步生成的候选区标定正负后(IOU>0.5), 对网络层添加Softmax Layer进一步finetune.    
+ &emsp;&emsp;a、ImageNet上的预训练.    
+ &emsp;&emsp;b、将第一步生成的候选区标定正负后(IOU>0.5), 对网络层添加Softmax Layer进一步finetune.    
 - 3、扔掉Softmax层, 将CNN作为特征提取器, 将候选区标定正负(IOU>0.3)后通过CNN网络, 形成该候选区域的特征. 同时保存pool5层的特征用于后面回归.   
 - 4、利用3中形成的候选区域特征, 为每个类别训练一个SVM分类器.  
 - 5、将pool5的特征进行回归任务, 对候选框进行位置修正.    
@@ -44,7 +45,7 @@ RCNN将CNN网络引入到了目标检测领域, 可以说是这一系列方法�
 - 3、Proposal会被缩放到统一大小, 而这会带来畸变, 物体不全等不利因素.    
     
 ## SPPNet --- Spatial Pyramid Pooling 解决候选区resize问题 
-针对RCNN中存在的2、3缺点, SPPNet提出了Spatial Pyramid Pooling来进行改进. Spatial Pyramid Pooling能够接收不同大小的输入, 但产生相同大小的输出.   
+&emsp;&emsp;针对RCNN中存在的2、3缺点, SPPNet提出了Spatial Pyramid Pooling来进行改进. Spatial Pyramid Pooling能够接收不同大小的输入, 但产生相同大小的输出.   
    
 ![sppnet](/images/0726/sppnet.png)  
    
@@ -68,6 +69,7 @@ RCNN将CNN网络引入到了目标检测领域, 可以说是这一系列方法�
 - 2、作为对BOW(Bag Of Words)的一个近似, 其提取了不同尺度的特征进行拼接, 使用了多层信息, 对物体形变等有一定作用. 其实当作用在整张feature map时, 其还能带来全局信息的整合, 避免误判 --- 在CVPR 2017的一个做语义分割的工作PSPNet中就是用了这个特性. 不过这里并没有使用该特性综合全局信息(关于这一点我们在后面再讨论).    
 - 3、由于其消除了大小影响, 所以可以进行Variable-Image size的训练, 可以有效防止过拟合(这种训练方式在以后很多工作中都很常见).    
 SPPNet的引入主要想解决的是RCNN中Region Proposal的缩放问题(因为两个网络都存在全连接层, 需要输入固定大小).     
+      
 **SPPNet还存在的局限**     
 - 1、训练和RCNN一样还是分多阶段进行, 还是需要额外的硬盘存储.    
 - 2、Finetune的时候仅对全连接层做了微调.    
