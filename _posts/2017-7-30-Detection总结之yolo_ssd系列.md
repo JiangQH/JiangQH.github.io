@@ -7,7 +7,7 @@
 
 **YOLO基本思路步骤**    
 
-![YOLO](/images/0730/yolo.PNG )  
+![YOLO](/images/0730/yolo_s.png )  
 
 - A. 将图像暴力划分为\\(s \times s\\)的格子区域, 若某个物体的中心落在该格子里, 则由其负责该物体的检测. 每个格子会输出一个表明格子里的物体为某个类别的条件概率. 即\\(P(c_i\|object)\\), 其中\\(c_i = 0, 1, ... C\\).  
 - B. 同时假设每个格子可以预测B个物体框(bounding box). 每个物体框有5个输出, 分别是其置信度, 以及对应的坐标x, y, w, h. 其中置信度表达为\\(Pr(object) \times IOU^{truth}_{pred}\\), 其中\\(Pr(object)\\)的取值当有物体时为1否则为0.  
@@ -19,12 +19,12 @@ $$Pr(c_i|object) * Pr(object) * IOU^{truth}_{pred} = Pr(c_i) * IOU^{truth}_{pred
 
 &emsp;&emsp;该输出既表达了每个类别的概率, 也表达了预测的框与真实框的重叠度. 
 
-![yolo2](/images/0730/yolo2.jpg)  
+![yolo2](/images/0730/yolo.PNG)  
 
 &emsp;&emsp;回到网络设计上来. 如上所示YOLO接收一张图像, 经过一系列的卷积层, 然后经过两个全连接层得到最后的输出.    
 &emsp;&emsp;由A, B的讨论我们知道每个格子的输出数目应该是\\(C + 5 \times B\\), 同时一共有\\(s \times s\\)个格子. 如上图, 假设\\(s=7, B=2, C=20\\), 即将图分为\\(7 \times 7\\)格子区域, 每个格子输出2个box, 然后一共有20个类别. 那么便可计算最后的输出为\\(7 \times 7 \times 30\\). 注意此处\\(7 \times 7\\)的输出其实是为了方便显示才这样画, 其实是一个全连接层. 同时该\\(7 \times 7\\)输出中的每个30维向量都对应于原图中对应位置的格子区域, 在优化时便会利用该区域的ground truth来进行相应的求loss.  这个30维向量大概长这个样. 
 
-![yolo3](/images/0730/yolo3.jpg)    
+![yolo3](/images/0730/yolo_l.jpg)    
 
 &emsp;&emsp;最后提一下YOLO中的loss设计, 其loss全部使用平方误差最小化. 为了平衡有无物体之间loss的区别, 加入了两个参数\\(\lambda_{coord}, lambda_{noobj}\\). 同时为了平衡大小框之间的平方误差关系, 实际使用的是开根号后的距离, 这样设计的一个目的是使得较大的框的变化没有较小的框那么重要. 
 
