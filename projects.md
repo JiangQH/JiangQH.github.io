@@ -13,8 +13,8 @@ Based on the feature of convolution networks, transfer the style from one image 
 Estimating surface normal from monocular image. Based on the deep learning library caffe with some modifications, achieving state-of-art result, the demo is shown on the github.   
 
 
-### [Monocular-Depth-Surface-Normal-Estimation](https://github.com/JiangQH/Monocular-Depth-Surface-Normal-Estimation)
-A general frame work to predict pixel wise info from monocular image. When applied to depth estimation, it achieves state-of-art result with much less data, same with surface normal estimation. Note segmentation can also be handdled with this project, which will be shown soon.   
+### [Monocular-Depth-Surface-Normal-Estimation]()
+temporarily removed   
 
 ### [Dense-Pixel-Models-In-Tensorflow](https://github.com/JiangQH/Dense-Pixel-Models-In-Tensorflow)
 Some state-of-art Dense Pixle Models implemented with tensorflow, many of them are trained for semantic segmentation originally, but can be extend to other subjets such as depth/normal estimation.  
